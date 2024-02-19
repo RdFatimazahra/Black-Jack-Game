@@ -31,5 +31,12 @@ public class PaquetCartes {
         }
     }
 
-  
+    // Méthode pour tirer une carte du paquet
+    public Carte tirerCarte() {
+        if (cartes.isEmpty()) {
+            throw new IllegalStateException("Le paquet de cartes est vide");
+        }
+        return cartes.remove(0);
+    }
+}
 
