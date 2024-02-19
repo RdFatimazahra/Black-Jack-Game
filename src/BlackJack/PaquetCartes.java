@@ -20,4 +20,16 @@ public class PaquetCartes {
         }
     }
 
+ // Méthode pour mélanger les cartes dans le paquet
+    private void melangerCartes() {
+        Random random = new Random();
+        for (int i = cartes.size() - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            Carte temp = cartes.get(i);
+            cartes.set(i, cartes.get(j));
+            cartes.set(j, temp);
+        }
+    }
+
   
+
