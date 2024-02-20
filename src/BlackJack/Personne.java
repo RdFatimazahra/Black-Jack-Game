@@ -1,23 +1,22 @@
 package BlackJack;
 
-public class Personne {
-	
-	
-    private String nom;
-    private Main main;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Personne(String nom) {
-        this.nom = nom;
-        this.main = new Main(nom);
-    }
+	public class Personne {
+	    protected String nom;
+	    protected Main main;
 
-    // Méthode pour ajouter une carte à la main
-    public void ajouterCarte(Carte carte) {
-        main.ajouterCarte(carte);
-    }
+	    public Personne(String nom) {
+	        this.nom = nom;
+	        this.main = new Main(nom);
+	    }
 
-    // Méthode pour obtenir la main
-    public Main getMain() {
-        return main;
-    }
-}
+	    public void ajouterCarte(Carte carte) {
+	        main.ajouterCarte(carte);
+	    }
+
+	    public Main getMain() {
+	        return main;
+	    }
+	}

@@ -2,96 +2,113 @@ package BlackJack;
 
 import java.util.Scanner;
 
-public class BlackJack {
-    public static void main(String[] args) {
-        afficherMenu();
-    }
+	public class BlackJack {
+	    private PaquetCartes paquetCartes;
+	    private Joueur joueur;
+	    private Croupier croupier;
+	    private boolean tourJoueur;
 
-    public static void afficherMenu() {
-        Scanner scanner = new Scanner(System.in);
-        int choix;
-        do {
-            System.out.println("Menu\n");
-            System.out.println("1. Commencer à jouer");
-            System.out.println("2. Consulter mon solde de jetons");
-            System.out.println("3. Quitter");
+	    public BlackJack(String username, double solde) {
+	        this.paquetCartes = new PaquetCartes();
+	        this.joueur = new Joueur(username, solde);
+	        this.croupier = new Croupier(17); // Valeur totale limite pour le croupier
+	        this.tourJoueur = true;
+	    }
 
-            System.out.print("Choix : ");
-            choix = scanner.nextInt();
+	    public void jouer() {
+	        distribuerCartesInitiales();
+	        afficherMains();
+	        while (tourJoueur) {
+	            menuJoueur();
+	            afficherMains();
+	        }
+	        tourCroupier();
+	        afficherMains();
+	        determinerResultat();
+	    }
 
-            switch (choix) {
-                case 1:
-                    System.out.println("Début du jeu...");
-                    jouer();
-                    break;
-                case 2:
-                    consulterSoldeJetons();
-                    break;
-                case 3:
-                    System.out.println("Au revoir !");
-                    break;
-                default:
-                    System.out.println("Choix invalide. Veuillez sélectionner une option valide.");
-            }
-        } while (choix != 3);
-    }
+	    private void distribuerCartesInitiales() {
+	        joueur.ajouterCarte(paquetCartes.tirerCarte());
+	        joueur.ajouterCarte(paquetCartes.tirerCarte());
+	        croupier.ajouterCarte(paquetCartes.tirerCarte());
+	        croupier.ajouterCarte(paquetCartes.tirerCarte());
+	    }
 
-    public static void jouer() {
-        // Mettez ici le code pour commencer à jouer au Blackjack
-        System.out.println("Bienvenue au jeu Blackjack !");
+	    private void menuJoueur() {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.println("\nMenu de jeu");
+	        System.out.println("1. Hit (Tirer une nouvelle carte)");
+	        System.out.println("2. Stand (Rester avec la main actuelle)");
+	        System.out.print("Choix : ");
+	        int choix = scanner.nextInt();
 
-        afficherMenuJeu();
-    }
+	        switch (choix) {
+	            case 1:
+	                joueurTireCarte();
+	                break;
+	            case 2:
+	                tourJoueur = false;
+	                break;
+	            default:
+	                System.out.println("Choix invalide");
+	        }
+	    }
 
-    public static void consulterSoldeJetons() {
-        // Mettez ici le code pour consulter le solde de jetons du joueur
-        System.out.println("Votre solde de jetons est : 200"); // Remplacez XXX par le solde actuel
-    }
+	    private void joueurTireCarte() {
+	        joueur.ajouterCarte(paquetCartes.tirerCarte());
+	    }
 
-    public static void afficherMenuJeu() {
-        Scanner scanner = new Scanner(System.in);
-        int choix;
-        do {
-            System.out.println("\nMenu de jeu\n");
-            System.out.println("1. Hit (Tirer une nouvelle carte)");
-            System.out.println("2. Stand (Rester avec la main actuelle)");
-            System.out.println("3. Quitter la partie");
+	    private void tourCroupier() {
+	        while (croupier.doitTirer()) {
+	            croupierTireCarte();
+	        }
+	    }
 
-            System.out.print("Choix : ");
-            choix = scanner.nextInt();
+	    private void croupierTireCarte() {
+	        croupier.ajouterCarte(paquetCartes.tirerCarte());
+	    }
 
-            switch (choix) {
-                case 1:
-                    // Mettez ici le code pour le choix "Hit"
-                    System.out.println("Tirer une nouvelle carte...");
-                    break;
-                case 2:
-                    // Mettez ici le code pour le choix "Stand"
-                    System.out.println("Rester avec la main actuelle...");
-                    break;
-                case 3:
-                    System.out.println("Partie terminée !");
-                    break;
-                default:
-                    System.out.println("Choix invalide. Veuillez sélectionner une option valide.");
-            }
-        } while (choix != 3);
-    }
-}
+	    private void afficherMains() {
+	        System.out.println("Main du joueur : " + joueur.getMain().getCartes());
+	        System.out.println("Main du croupier : " + (tourJoueur ? croupier.getMain().getCartes().subList(1, croupier.getMain().getCartes().size()) : croupier.getMain().getCartes()));
+	    }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	    private void determinerResultat() {
+	    	  int valeurJoueur = joueur.getMain().getValeurTotal();
+	          int valeurCroupier = croupier.getMain().getValeurTotal();
+	          
+	          System.out.println("Valeur de la main du joueur : " + valeurJoueur);
+	          System.out.println("Valeur de la main du croupier : " + valeurCroupier);
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	          if (valeurJoueur > 21) {
+	              System.out.println("Le joueur a dépassé 21. Le croupier gagne.");
+	          } else if (valeurCroupier > 21) {
+	              System.out.println("Le croupier a dépassé 21. Le joueur gagne.");
+	          } else if (valeurJoueur > valeurCroupier) {
+	              System.out.println("Le joueur gagne.");
+	          } else if (valeurJoueur < valeurCroupier) {
+	              System.out.println("Le croupier gagne.");
+	          } else {
+	              System.out.println("Égalité.");
+	          }
+	      }
+	  
+	    
+	 public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Entrez votre nom : ");
+	        String nomJoueur = scanner.nextLine();
+	        System.out.print("Entrez votre solde initial : ");
+	        double soldeInitial = scanner.nextDouble();
+	        
+	        BlackJack jeu = new BlackJack(nomJoueur, soldeInitial);
+	        jeu.jouer();
+	    }
 	}
+	
+	
+	
+	
+	
+	
 
-}

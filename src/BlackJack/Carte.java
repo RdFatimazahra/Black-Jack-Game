@@ -2,30 +2,24 @@ package BlackJack;
 
 public class Carte {
 
-	private String valeur;
-	private String type;
-	
-		
-	//Getters and Setters :
-	public String getValeur() {
-		return valeur;
+	    private int couleur;
+	    private int valeur;
+
+	    public Carte(int couleur, int valeur) {
+	        this.couleur = couleur;
+	        this.valeur = valeur;
+	    }
+
+	    public int getValeur() {
+	        return valeur;
+	    }
+
+		@Override
+		public String toString() {
+			return "Carte [couleur=" + couleur + ", valeur=" + valeur + "]";
+		}
 	}
-	public void setValeur(String valeur) {
-		this.valeur = valeur;
-	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public Carte(String values, String type) {
-	
-		this.valeur = values;
-		this.type = type;
-	}
+
 	
 	
-	
-	
-}
+
