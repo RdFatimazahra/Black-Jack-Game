@@ -3,7 +3,7 @@ package BlackJack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class Main implements MainInterface {
     private String nom;
     private int valeurTotal;
     private List<Carte> cartes;

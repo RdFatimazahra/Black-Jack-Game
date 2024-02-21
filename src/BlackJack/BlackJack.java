@@ -74,24 +74,27 @@ import java.util.Scanner;
 	    }
 
 	    private void determinerResultat() {
-	    	  int valeurJoueur = joueur.getMain().getValeurTotal();
-	          int valeurCroupier = croupier.getMain().getValeurTotal();
-	          
-	          System.out.println("Valeur de la main du joueur : " + valeurJoueur);
-	          System.out.println("Valeur de la main du croupier : " + valeurCroupier);
+	        int valeurJoueur = joueur.getMain().getValeurTotal();
+	        int valeurCroupier = croupier.getMain().getValeurTotal();
+	        
+	        System.out.println("Valeur de la main du joueur : " + valeurJoueur);
+	        System.out.println("Valeur de la main du croupier : " + valeurCroupier);
 
-	          if (valeurJoueur > 21) {
-	              System.out.println("Le joueur a dépassé 21. Le croupier gagne.");
-	          } else if (valeurCroupier > 21) {
-	              System.out.println("Le croupier a dépassé 21. Le joueur gagne.");
-	          } else if (valeurJoueur > valeurCroupier) {
-	              System.out.println("Le joueur gagne.");
-	          } else if (valeurJoueur < valeurCroupier) {
-	              System.out.println("Le croupier gagne.");
-	          } else {
-	              System.out.println("Égalité.");
-	          }
-	      }
+	        if (valeurJoueur > 21) {
+	            System.out.println("Le joueur a dépassé 21. Le croupier gagne.");
+	            joueur.ajusterSolde(-1); // Retirer la mise
+	        } else if (valeurCroupier > 21 || valeurJoueur > valeurCroupier) {
+	            System.out.println("Le joueur gagne.");
+	            joueur.ajusterSolde(1); // Ajouter la mise
+	        } else if (valeurJoueur < valeurCroupier) {
+	            System.out.println("Le croupier gagne.");
+	            joueur.ajusterSolde(-1); // Retirer la mise
+	        } else {
+	            System.out.println("Égalité.");
+	        }
+	        System.out.println("Solde final des jetons : " + joueur.getSolde());
+	    }
+
 	  
 	    
 	 public static void main(String[] args) {

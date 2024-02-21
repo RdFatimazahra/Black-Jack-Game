@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PaquetCartes {
+public class PaquetCartes implements PaquetCartesInterface {
     private List<Carte> cartes;
 
     public PaquetCartes() {

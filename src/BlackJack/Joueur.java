@@ -12,4 +12,12 @@ public class Joueur extends Personne {
     public void placerMise(double mise) {
         solde -= mise;
     }
+
+    public void ajusterSolde(double montant) {
+        solde += montant;
+    }
+
+    public double getSolde() {
+        return solde;
+    }
 }
