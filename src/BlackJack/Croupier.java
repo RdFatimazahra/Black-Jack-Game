@@ -1,7 +1,7 @@
 package BlackJack;
 
 
-public class Croupier extends Personne {
+public class Croupier extends Personne implements CroupierInterface {
     private int valeurTotalLimit;
 
     public Croupier(int valeurTotalLimit) {
@@ -9,6 +9,7 @@ public class Croupier extends Personne {
         this.valeurTotalLimit = valeurTotalLimit;
     }
 
+    @Override
     public boolean doitTirer() {
         return getMain().getValeurTotal() < valeurTotalLimit;
     }

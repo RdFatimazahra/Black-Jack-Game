@@ -1,6 +1,6 @@
 package BlackJack;
 
-public class Carte {
+public class Carte implements CarteInterface {
 
 	    private int couleur;
 	    private int valeur;

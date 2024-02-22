@@ -12,7 +12,8 @@ public class PaquetCartes implements PaquetCartesInterface {
         initialiserPaquet();
         melangerCartes();
     }
-
+    
+    @Override
     // Méthode pour initialiser le paquet de cartes avec 52 cartes
     private void initialiserPaquet() {
         for (int couleur = 1; couleur <= 4; couleur++) {
@@ -22,6 +23,7 @@ public class PaquetCartes implements PaquetCartesInterface {
         }
     }
 
+    @Override
  // Méthode pour mélanger les cartes dans le paquet
     private void melangerCartes() {
         Random random = new Random();
@@ -33,6 +35,7 @@ public class PaquetCartes implements PaquetCartesInterface {
         }
     }
 
+    @Override
     // Méthode pour tirer une carte du paquet
     public Carte tirerCarte() {
         if (cartes.isEmpty()) {
