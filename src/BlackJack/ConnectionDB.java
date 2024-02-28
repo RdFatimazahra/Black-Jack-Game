@@ -1,6 +1,6 @@
 package BlackJack;
 
-import java.sql.connection;
+import java.sql.Connection;
 import java.sql.DriverManager;
 
 
@@ -14,21 +14,19 @@ public class ConnectionDB {
 		try {
 			
 			Class.forName("org.postgresql.Driver");
-			connection = DriverManager.getConnection("jdbc:postgresql://Localhost:5432/postgres","postgres","root");
+			connection = DriverManager.getConnection("jdbc:postgresql://localhost:2909/postgres","postgres","admin");
 			if(connection!= null) {
-				System.println.out("Connection OK");
+				System.out.println("Connection OK");
 			} else {
-				System.println.out("Connection Failed");
+				System.out.println("Connection Failed");
 				
 			}
 			} catch (Exception e) {
 				
-				system.println.out(e);
+				System.out.println(e);
 				
 			}
 				
 		}
 		
 	}
-
-}
